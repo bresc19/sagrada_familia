@@ -16,7 +16,6 @@ import java.rmi.registry.Registry;
 
 import static it.polimi.ingsw.client.constants.NameConstants.SERVER_IP;
 import static it.polimi.ingsw.client.constants.NameConstants.RMI_PORT;
-import static it.polimi.ingsw.client.constants.printCostants.CONNECTION_ERROR;
 import static it.polimi.ingsw.client.constants.printCostants.SERVER_CONNECTION_ERROR;
 import static it.polimi.ingsw.client.constants.printCostants.THREAD_ERROR;
 import static java.lang.Thread.sleep;
@@ -28,7 +27,7 @@ public class RmiConnection implements Connection {
     private String host;
     private int port;
 
-    public RmiConnection(Handler hand) throws IOException {
+    public RmiConnection(Handler hand) throws RemoteException {
         this.hand = hand;
         try {
             setConnection();
@@ -36,7 +35,9 @@ public class RmiConnection implements Connection {
             client = new RmiClientMethod(hand);
             server = (RmiServerMethodInterface) registry.lookup("RmiServerMethodInterface");
         } catch (NotBoundException e3) {
-            Message.println(CONNECTION_ERROR, TypeMessage.ERROR_MESSAGE);
+            System.out.println(e3.getMessage());
+        }catch (IOException e) {
+            e.printStackTrace();
         }
         pingServer();
     }

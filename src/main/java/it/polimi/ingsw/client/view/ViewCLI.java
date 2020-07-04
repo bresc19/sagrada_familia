@@ -16,7 +16,6 @@ import static it.polimi.ingsw.client.constants.MessageConstants.CHANGE_VALUE;
 import static it.polimi.ingsw.client.constants.MessageConstants.PAINT_ROW;
 import static it.polimi.ingsw.client.constants.NameConstants.*;
 import static it.polimi.ingsw.client.constants.printCostants.*;
-import static it.polimi.ingsw.client.constants.printCostants.CONNECTION_ERROR;
 import static it.polimi.ingsw.client.constants.printCostants.NICKNAME_ALREADY_USE;
 
 public class ViewCLI implements View {
@@ -114,7 +113,7 @@ public class ViewCLI implements View {
                 try {
                     connection = new RmiConnection(hand);
                     correct = true;
-                } catch (IOException e) {
+                } catch (RemoteException e) {
                     Message.println(CONNECTION_ERROR, TypeMessage.ERROR_MESSAGE);
                 }
 
@@ -793,7 +792,7 @@ public class ViewCLI implements View {
                 correct=true;
                 return true;
             } catch (IOException e) {
-                e.getMessage();
+                e.printStackTrace();
             }
         }
 
@@ -946,7 +945,7 @@ public class ViewCLI implements View {
     public void startTurn(String name) {
         clearScreen();
         try {
-            load.displayImage(config.getParameter(PATH_ROUND_GAME_IMAGE)+ round + ".txt",false);
+            load.displayImage(config.getParameter(PATH_ROUND_GAME_IMAGE)+ round + ".txt");
         } catch (IOException e) {
             e.getMessage();
         }
@@ -1550,7 +1549,7 @@ public class ViewCLI implements View {
             winner = PATH_LOSE_IMAGE;
 
         try {
-            load.displayImage(config.getParameter(winner),false);
+            load.displayImage(config.getParameter(winner));
         } catch (IOException e) {
             e.getMessage();
         }
@@ -1637,7 +1636,7 @@ public class ViewCLI implements View {
         }
 
         try {
-            load.displayImage(config.getParameter(PATH_ROUND_GAME_IMAGE)+round + ".txt",false);
+            load.displayImage(config.getParameter(PATH_ROUND_GAME_IMAGE)+round + ".txt");
         } catch (IOException e) {
             e.getMessage();
         }

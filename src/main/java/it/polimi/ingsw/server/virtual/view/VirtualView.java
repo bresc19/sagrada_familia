@@ -25,10 +25,6 @@ public class VirtualView extends Observable implements Observer {
         return instance;
     }
 
-    /**
-     * log the player
-     * @param name is the name of player
-     */
     public void login(String name){
         Message message = new Message(LOGIN);
         message.addPlayer(name);
@@ -36,9 +32,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * disconnect the player
-     */
     public void disconnected(String name){
         Message message = new Message(DISCONNECTED);
         message.addPlayer(name);
@@ -46,11 +39,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-
-    /**
-     * @param schema is scheme's name
-     * @param name the name of the player to whom the message will be sent
-     */
     public void sendSchema(String schema, String name){
         Message message = new Message(CHOOSE_SCHEMA);
         message.addStringArguments(schema);
@@ -59,13 +47,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * used to insert dice to scheme from diceSpace
-     * @param name the name of the player to whom the message will be sent
-     * @param indexDiceSpace is index of dice space
-     * @param row is index of row
-     * @param column is index of column
-     */
     public void insertDice(String name, int indexDiceSpace, int row, int column){
         Message message = new Message(INSERT_DICE);
         message.addIntegerArgument(indexDiceSpace);
@@ -76,11 +57,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * invoked when you want use tool card
-     * @param name the name of the player to whom the message will be sent
-     * @param toolNumber is tool card's number
-     */
     public void useToolCard(String name, int toolNumber){
         Message message;
         message = new Message(USE_TOOL_CARD);
@@ -90,14 +66,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * invoked when you want move dice in scheme
-     * @param name the name of the player to whom the message will be sent
-     * @param oldRow is the row from take dice
-     * @param oldColumn is the column from take dice
-     * @param newRow is the row to move dice
-     * @param newColumn is the column to move dice
-     */
     public void moveDice(String name, int oldRow, int oldColumn, int newRow, int newColumn){
         Message message = new Message(MOVE_DICE);
         message.addIntegerArgument(oldRow);
@@ -109,10 +77,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * send end turn message
-     * @param name the name of the player to whom the message will be sent
-     */
     public void sendEndTurn(String name){
         Message message = new Message(END_TURN);
         message.addPlayer(name);
@@ -120,11 +84,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * is invoked when use draft dice
-     * @param name the name of the player to whom the message will be sent
-     * @param indexDiceSpace is index of dice space
-     */
     public void draftDice(String name, int indexDiceSpace){
         Message message = new Message(DRAFT_DICE);
         message.addPlayer(name);
@@ -133,12 +92,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * is invoked when use place dice
-     * @param name the name of the player to whom the message will be sent
-     * @param row is row index of scheme
-     * @param column is column index of scheme
-     */
     public void placeDice(String name, int row, int column){
         Message message = new Message(PLACE_DICE);
         message.addIntegerArgument(row);
@@ -148,11 +101,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * is invoked when use changeValue
-     * @param name the name of the player to whom the message will be sent
-     * @param change is "decrement" or "increment"
-     */
     public void changeValue(String name, String change){
         Message message = new Message(CHANGE_VALUE);
         message.addPlayer(name);
@@ -161,10 +109,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * is invoked when use roll dice
-     * @param name the name of the player to whom the message will be sent
-     */
     public void rollDice(String name){
         Message message = new Message(ROLL_DICE);
         message.addPlayer(name);
@@ -172,12 +116,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * take a dice from round track
-     * @param name the name of the player to whom the message will be sent
-     * @param numRound is the number of round
-     * @param indexDice is index of dice
-     */
     public void swapDice(String name, int numRound, int indexDice){
         Message message;
         message = new Message(SWAP_DICE);
@@ -188,10 +126,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * invoked when use cancel tool card
-     * @param name the name of the player to whom the message will be sent
-     */
     public void cancelUseToolCard(String name){
         Message message = new Message(CANCEL_USE_TOOL_CARD);
         message.addPlayer(name);
@@ -199,10 +133,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * turn to opposite face of dice
-     * @param name the name of the player to whom the message will be sent
-     */
     public void flipDice(String name){
         Message message = new Message(FLIP_DICE);
         message.addPlayer(name);
@@ -210,10 +140,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * place dices in dice space
-     * @param name the name of the player to whom the message will be sent
-     */
     public void placeDiceSpace(String name){
         Message message = new Message(PLACE_DICE_SPACE);
         message.addPlayer(name);
@@ -221,10 +147,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * roll dices in dice space
-     * @param name the name of the player to whom the message will be sent
-     */
     public void rollDiceSpace(String name){
         Message message = new Message(ROLL_DICE_SPACE);
         message.addPlayer(name);
@@ -232,10 +154,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * exchange dice with dice bag
-     * @param name the name of the player to whom the message will be sent
-     */
     public void swapDiceBag(String name) {
         Message message = new Message(SWAP_DICE_BAG);
         message.addPlayer(name);
@@ -243,11 +161,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * is invoked when choose value of dice
-     * @param name the name of the player to whom the message will be sent
-     * @param value is the new value of dice
-     */
     public void chooseValue(String name, int value) {
         Message message = new Message(CHOOSE_VALUE);
         message.addIntegerArgument(value);
@@ -256,11 +169,6 @@ public class VirtualView extends Observable implements Observer {
         notifyObservers(message);
     }
 
-    /**
-     * send custom scheme to server
-     * @param name the name of the player to whom the message will be sent
-     * @param schema is the name of custom schema
-     */
     public void sendCustomSchema(String schema, String name) {
         Message message;
         message = new Message(CUSTOM_SCHEMA);
@@ -271,11 +179,6 @@ public class VirtualView extends Observable implements Observer {
     }
 
 
-    /**
-     * send message from model to client
-     * @param o is object observed
-     * @param arg is message sent
-     */
     public void update(Observable o, Object arg) {
         Message message = (Message) arg;
 

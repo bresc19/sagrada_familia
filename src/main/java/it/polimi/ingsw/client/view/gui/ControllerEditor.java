@@ -251,7 +251,7 @@ public class ControllerEditor {
             loader.setLocation(getClass().getResource("/FXML/" + src + ".fxml"));
             p = loader.load();
         } catch (IOException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         Scene scene = new Scene(p);
         stage.setScene(scene);
