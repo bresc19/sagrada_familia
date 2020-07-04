@@ -93,7 +93,7 @@ class BoardTest {
             assertEquals(toolCards.get(1), board.getToolCard(toolCards.get(1).getNumber()));
             assertEquals(toolCards.get(2), board.getToolCard(toolCards.get(2).getNumber()));
         } catch (UseToolException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(UseToolException.class, () -> board.getToolCard(13));
     }

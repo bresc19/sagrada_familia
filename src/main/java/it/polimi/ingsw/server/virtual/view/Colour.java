@@ -14,6 +14,11 @@ public enum Colour {
         this.escape = escape;
     }
 
+    /**
+     * convert string to colour
+     * @param c is the name of colour
+     * @return colour
+     */
     public static Colour stringToColour(String c) {
         switch (c) {
             case "ANSI_GREEN":

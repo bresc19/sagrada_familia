@@ -39,7 +39,7 @@ class SchemaTest {
             assertNull(s.getTable(0,0).getDice(),"The box is empty");
             assertNull(s.removeDice(0,0),"The box is empty");
         } catch (RemoveDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -125,7 +125,7 @@ class SchemaTest {
             s.testInsertDice(0,0,dice,null);
             assertEquals(0,s.getSize());
         } catch (InsertDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(InsertDiceException.class,() -> s.testInsertDice(0,1,dice,null));
     }

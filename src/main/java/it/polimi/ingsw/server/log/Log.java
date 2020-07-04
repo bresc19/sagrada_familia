@@ -21,7 +21,7 @@ public class Log {
         try {
             fileHandler = new FileHandler(Paths.get(config.getParameter(PATH_LOG_FILE)).toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         consoleHandler = new ConsoleHandler();
         logger.addHandler(Objects.requireNonNull(fileHandler));
@@ -32,17 +32,20 @@ public class Log {
         fileHandler.setFormatter(f);
     }
 
+    /**
+     * get logger
+     * @return logger
+     */
     public static Log getLogger(){
         if(log == null)
             log = new Log();
         return log;
     }
-    public void setLevelLog(Level level){
-        logger.setLevel(level);
-    }
 
-    public Level getLevelLog() { return logger.getLevel(); }
-
+    /**
+     * show log on console
+     * @param level is the level of log
+     */
     public void setVisibleLog(String level)
     { Level level_log;
         switch(level)
@@ -55,6 +58,13 @@ public class Log {
         consoleHandler.setLevel(level_log);
     }
 
+    /**
+     * add a log in log file
+     * @param message is message to log
+     * @param levelLogin is level of message to log
+     * @param sourceClass is source class that invoke thid method
+     * @param sourceMethod is source method that invoke this method
+     */
     public void addLog(String message,Level levelLogin,String sourceClass,String sourceMethod)
     {
         logger.logp(levelLogin,sourceClass,sourceMethod,message);

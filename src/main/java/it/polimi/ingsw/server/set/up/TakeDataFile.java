@@ -7,9 +7,14 @@ import java.util.Optional;
 import static it.polimi.ingsw.server.costants.LogConstants.*;
 import static it.polimi.ingsw.server.costants.NameConstants.CONFIG_FILE;
 public class TakeDataFile {
+
     public TakeDataFile() {
     }
 
+    /**
+     * @param parameter is the name of parameter in config file
+     * @return value of parameter in config file
+     */
     public String getParameter(String parameter)   {
         String result = null;
         String configFile  = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();

@@ -46,7 +46,7 @@ class SwapDiceStateTest {
         try {
             board.getRoundTrack().insertDice( dice,0);
         } catch (InsertDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 

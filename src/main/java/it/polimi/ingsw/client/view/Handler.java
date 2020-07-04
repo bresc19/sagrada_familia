@@ -34,13 +34,13 @@ public class Handler {
             Scanner in = new Scanner(System.in);
 
             try {
-                load.displayImage(config.getParameter(PATH_START_GAME_IMAGE));
+                load.displayImage(config.getParameter(PATH_START_GAME_IMAGE),true);
             } catch (IOException e) {
                Message.println(e.getMessage(),TypeMessage.ERROR_MESSAGE);
             }
-            Message.println("\u001B[37m"+CHOOSE_GRAPHIC_INTERFACE,TypeMessage.INFO_MESSAGE);
-            Message.println(CLI_CHOOSE,TypeMessage.INFO_MESSAGE);
-            Message.println(GUI_CHOOSE,TypeMessage.INFO_MESSAGE);
+            System.out.println(CHOOSE_GRAPHIC_INTERFACE);
+            System.out.println(CLI_CHOOSE);
+            System.out.println(GUI_CHOOSE);
             choose = in.nextLine();
             if (choose.equals("1"))
             {

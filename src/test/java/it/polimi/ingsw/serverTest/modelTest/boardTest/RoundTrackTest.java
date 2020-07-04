@@ -45,7 +45,7 @@ class RoundTrackTest {
             assertEquals(3, roundTrack.getListRounds(0).size());
             assertEquals(d3, roundTrack.getListRounds(0).get(2));
         } catch (InsertDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(InsertDiceException.class,() -> roundTrack.insertDice(d3,11));
         reconnectPlayer();
@@ -65,7 +65,7 @@ class RoundTrackTest {
             assertFalse(roundTrack.getListRounds(1).contains(dice));
 
         }catch (RemoveDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(RemoveDiceException.class,() -> roundTrack.testRemoveDice(11,0,"player 1"));
         assertThrows(RemoveDiceException.class,() -> roundTrack.removeDice(11,0));

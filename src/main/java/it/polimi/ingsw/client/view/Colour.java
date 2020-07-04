@@ -44,7 +44,10 @@ public enum Colour {
      */
     public static String colorString(String str, Colour colour)
     {
+        if(colour!=null)
         return colour.escape+str+Colour.RESET;
+
+        return str;
     }
 
     /**

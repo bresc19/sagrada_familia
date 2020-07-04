@@ -184,7 +184,7 @@ public class RmiClientMethod extends UnicastRemoteObject implements RmiClientMet
         try {
             v.pickDiceSpace(index);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 

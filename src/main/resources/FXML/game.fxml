@@ -1035,7 +1035,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <ImageView id="1" fitHeight="48.0" fitWidth="54.0" layoutX="603.0" layoutY="14.0" onMouseClicked="#play_stop_Music" pickOnBounds="true" preserveRatio="true" visible="false">
+                              <ImageView id="1" fitHeight="48.0" fitWidth="54.0" layoutX="603.0" layoutY="14.0" onMouseClicked="#play_stop_Music" pickOnBounds="true" preserveRatio="true" visible="true">
                                  <image>
                                     <Image url="@../assets/image/music.png" />
                                  </image>

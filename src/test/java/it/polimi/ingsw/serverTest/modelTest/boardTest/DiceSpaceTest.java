@@ -52,7 +52,7 @@ class DiceSpaceTest {
             assertEquals(2,diceSpace.getListDice().size());
             assertSame(dice,d1);
         } catch (RemoveDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(RemoveDiceException.class,() -> diceSpace.removeDice(4));
         assertThrows(RemoveDiceException.class,() -> diceSpace.removeDice(-1));
@@ -66,7 +66,7 @@ class DiceSpaceTest {
             assertEquals(3,diceSpace.getListDice().size());
             assertSame(dice,d1);
         } catch (RemoveDiceException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(RemoveDiceException.class,() -> diceSpace.getDice(4,"player 1"));
         assertThrows(RemoveDiceException.class,() -> diceSpace.getDice(-1,"player 1"));

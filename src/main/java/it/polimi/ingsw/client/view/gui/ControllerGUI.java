@@ -27,6 +27,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -41,6 +42,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
@@ -229,13 +232,15 @@ public class ControllerGUI implements View {
         stage.close();
         try {
             connection = new RmiConnection(hand);
-        } catch (RemoteException e) {
-            Message.println(CONNECTION_ERROR, TypeMessage.ERROR_MESSAGE);
+            changeScene(config.getParameter(GO_TO_LOGIN));
+            loginAction.setDefaultButton(true);
+        } catch (IOException e) {
+            ((Stage) imageView.getScene().getWindow()).close();
+            changeScene(config.getParameter(CHOOSE_CONNECTION));
+            setNotice(config.getParameter(NO_CONNECTION));
         }
 
 
-        changeScene(config.getParameter(GO_TO_LOGIN));
-        loginAction.setDefaultButton(true);
     }
 
 
@@ -252,11 +257,13 @@ public class ControllerGUI implements View {
         try {
             connection = new SocketConnection(hand);
         } catch (IOException e) {
-            Message.println(ERROR_SAVE_SCHEMA,TypeMessage.ERROR_MESSAGE);
+            ((Stage) imageView.getScene().getWindow()).close();
+            changeScene(config.getParameter(CHOOSE_CONNECTION));
+            setNotice(config.getParameter(NO_CONNECTION));
+            return;
         }
         Thread t = new Thread((SocketConnection) connection);
         t.start();
-
 
         changeScene(config.getParameter(GO_TO_LOGIN));
         loginAction.setDefaultButton(true);
@@ -404,8 +411,8 @@ public class ControllerGUI implements View {
     public void timerPing(final String time) {
 
         Platform.runLater(() -> {
-            int lobbyTimer = Integer.parseInt(config.getParameter(LOBBY_TIMER));
-            double result = ((lobbyTimer - Double.parseDouble(time)) / lobbyTimer);
+                    int lobbyTimer = Integer.parseInt(config.getParameter(LOBBY_TIMER));
+                    double result = ((lobbyTimer - Double.parseDouble(time)) / lobbyTimer);
                     progressBar.setProgress(result);
                 }
         );
@@ -427,6 +434,12 @@ public class ControllerGUI implements View {
     public void createGame() {
         Platform.runLater(() -> {
             String musicPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            musicPath = musicPath.substring(0, musicPath.lastIndexOf("/"));
+            musicPath = musicPath + config.getParameter(MUSIC_PATH);
+            musicPath = new File(musicPath).toURI().toString();
+            mediaPlayer = new MediaPlayer(new Media(musicPath));
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setAutoPlay(true);
 
             GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
@@ -549,24 +562,23 @@ public class ControllerGUI implements View {
      */
     public void openUndecoreted(String src){
 
-    Stage stage = new Stage();
-    Pane p = null;
+        Stage stage = new Stage();
+        Pane p = null;
 
-    p = loadFXML(src, p);
-    Scene scene = new Scene(p);
+        p = loadFXML(src, p);
+        Scene scene = new Scene(p);
         stage.setScene(scene);
         stage.setTitle("Sagrada");
-    Image image = new Image(config.getParameter(ICON_GAME));
+        Image image = new Image(config.getParameter(ICON_GAME));
         stage.getIcons().add(image);
         stage.setResizable(false);
         stage.initStyle(StageStyle.UTILITY);
         stage.resizableProperty().setValue(false);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        putCloseEvent(stage);
         stage.show();
 
-}
+    }
 
     /**it's set event on close request of stage
      * @param stage  where put event
@@ -596,6 +608,7 @@ public class ControllerGUI implements View {
         p = loadFXML(src, p);
         Scene scene = new Scene(p);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setTitle("Sagrada");
         Image image = new Image(config.getParameter(ICON_GAME));
         stage.getIcons().add(image);
@@ -760,9 +773,9 @@ public class ControllerGUI implements View {
             }
         });
     }
-     /**
+    /**
      * it load schema from the name of file given and print its constrain on the gridPane @schemaConstrain dynamically
-      * of opponents Players
+     * of opponents Players
      * (advanced functionality)
      * @param schemas name of schemas choose by the other player
      */
@@ -860,7 +873,7 @@ public class ControllerGUI implements View {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    e.getMessage();
                 }
             }
             if (correctInsertion) {
@@ -1007,7 +1020,7 @@ public class ControllerGUI implements View {
             }
             if (actions.contains(CANCEL_USE_TOOL_CARD) || actions.contains(SWAP_DICE)
                     || actions.contains(MOVE_DICE) || actions.contains(PLACE_DICE) ||
-                   actions.contains(PLACE_DICE_SPACE))
+                    actions.contains(PLACE_DICE_SPACE))
                 iconTool.setVisible(true);
             else iconTool.setVisible(false);
 
@@ -1056,7 +1069,7 @@ public class ControllerGUI implements View {
 
     /**
      Method launched if DraftDice was accepted.
-    show message/scene to carry on the use of tool card
+     show message/scene to carry on the use of tool card
      */
     public void draftDiceAccepted() {
         Platform.runLater(() -> {
@@ -1088,7 +1101,7 @@ public class ControllerGUI implements View {
 
     @Override
     public void moveDiceError() {
-      moveCorrect = false;
+        moveCorrect = false;
         synchronized (lock) {
             lock.notify();
         }
@@ -1293,7 +1306,7 @@ public class ControllerGUI implements View {
             try {
                 sleep(100);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.getMessage();
             }
             openUndecoreted(config.getParameter(NameConstants.CHANGE_VALUE));
 
@@ -1374,10 +1387,10 @@ public class ControllerGUI implements View {
         Platform.runLater(() -> IntStream.iterate(0, i -> i + 1)
                 .limit(colours.size())
                 .forEach(i -> {
-                    String color = colours.get(i);
-                    String number = values.get(i).toString();
-                    ImageView imageView = getLastRoundCell(nRound, roundTrack);
-                    setDice(imageView, color, number);
+                            String color = colours.get(i);
+                            String number = values.get(i).toString();
+                            ImageView imageView = getLastRoundCell(nRound, roundTrack);
+                            setDice(imageView, color, number);
 
                         }
 
@@ -1842,7 +1855,7 @@ public class ControllerGUI implements View {
                         }
 
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        e.getMessage();
                     }
                     if (moveCorrect) {
 

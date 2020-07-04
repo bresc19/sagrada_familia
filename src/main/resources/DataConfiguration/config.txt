@@ -45,6 +45,7 @@ ZOOM_CURSOR /assets/image/zoom.png
 
 FXML_URL /FXML/
 FXML .fxml
+NO_CONNECTION connection_error
 CHANGE_VALUE changeDiceValue
 CHOOSE_SCHEMA choose_schema
 CHOOSE_VALUE chooseDiceNumber

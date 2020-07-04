@@ -46,7 +46,7 @@ class DiceTest {
             dice1.incrementValue();
             assertEquals(5,dice1.getValue());
         } catch (ChangeDiceValueException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(ChangeDiceValueException.class, () -> dice2.incrementValue());
     }
@@ -58,7 +58,7 @@ class DiceTest {
             dice1.decrementValue();
             assertEquals(3,dice1.getValue());
         } catch (ChangeDiceValueException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         assertThrows(ChangeDiceValueException.class, () -> dice3.decrementValue());
     }

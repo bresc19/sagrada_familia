@@ -49,7 +49,7 @@ public class Schema {
         try {
             gsonString = getGson(nome);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         sch = g.fromJson(gsonString,Schema.class);
         return sch;
@@ -95,7 +95,7 @@ public class Schema {
         try {
             gsonString = getCustomGson(nome);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         sch = g.fromJson(gsonString,Schema.class);
         return sch;
@@ -203,7 +203,7 @@ public class Schema {
     }
 
     /**
-     *
+     * get name of schema
      * @return name of scheme
      */
     public String getName() {

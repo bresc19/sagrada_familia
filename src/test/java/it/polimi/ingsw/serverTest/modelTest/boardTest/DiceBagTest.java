@@ -78,7 +78,7 @@ class DiceBagTest {
         try {
             dice.setValue(2);
         } catch (ChangeDiceValueException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         db.insertDice(dice);
         assertTrue(fullSetup(db));

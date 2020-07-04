@@ -47,6 +47,8 @@ public class NameConstants {
     public static final String FIRST_SCENE = "FIRST_SCENE";
     public static final String GAMESCENE_15 = "GAMESCENE_15";
     public static final String CUSTOM_SCHEME = "CUSTOM_SCHEME";
+    public static final String NO_CONNECTION = "NO_CONNECTION";
+    public static final String CONNECTION_ERROR = "noconnection.jpg";
     public static final String CONFIG_FILE = "/config.txt";
     public static final String MUSIC_PATH = "MUSIC_PATH";
     public static final String USED_TOOL = "/assets/image/used.png";
